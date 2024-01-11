@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        <strong>{{ message | safe}}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="container my-2">
+  <form action="/edit" method="post" enctype="multipart/form-data">
+    <div class="input-group my-3">
+      <input type="file" name="file" class="form-control" id="inputGroupFile02">
+      <label class="input-group-text" for="inputGroupFile02">Upload File</label>
+    </div>
+
+    <div class="input-group my-8">
+      <label class="input-group-text" for="inputGroupSelect01">View Edit Options...</label>
+      <select name="operation" class="form-select" id="inputGroupSelect01">
+        <option selected>Choose Option...</option>
+        <option value="cgray">RGB to Grayscale</option>
+        <option value="cjpg">Convert to jpg</option>
+        <option value="cpng">Convert to png</option>
+        <option value="cwebp">Convert to webp</option>
+      </select>
+    </div>
+    <button type="submit" class="btn my-3 btn-outline-danger">Convert Image</button>
+  </form>
+</div>
+{% endblock body %}
